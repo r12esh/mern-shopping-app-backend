@@ -13,6 +13,9 @@ const {
 } = require("../controllers/product");
 const {isSignedIn, isAuthenticated, isAdmin} = require("../controllers/auth");
 const {getUserById} = require("../controllers/user");
+const {getAllCategories} = require("../controllers/category");
+
+const a = 9;
 
 //params:-
 router.param("userId", getUserById);
