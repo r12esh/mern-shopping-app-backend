@@ -26,14 +26,15 @@ router.post("/product/create/:userId", isSignedIn, isAuthenticated, isAdmin, cre
 router.get("/product/:productId", getProduct);
 router.get("product/photo/productId", photo);
 
+//LISTING routes:-
+router.get("/products", getAllProducts);
+router.get("/products/categories", getAllUniqueCategories);
+
 //UPDATE routes:-
 router.put("/product/:productId/:userId", isSignedIn, isAuthenticated, isAdmin, updateProduct);
 
 //DELETE routes:-
 router.delete("/product/:productId/:userId", isSignedIn, isAuthenticated, isAdmin, deleteProduct);
 
-//LISTING routes:-
-router.get("/products", getAllProducts);
-router.get("/products/categories", getAllUniqueCategories);
 
 module.exports = router;

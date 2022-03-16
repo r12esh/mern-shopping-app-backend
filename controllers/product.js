@@ -18,6 +18,42 @@ const getProductById = (req, res, next, id) => {
     });
 }
 
+//get only product
+const getProduct = (req, res) => {
+  res.product.photo = undefined;
+  return res.json(res.product);
+}
+
+//Product listing
+const getAllProducts = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+
+  Product
+    .find()
+    .select("-photo")//This '-' means not selecting photos
+    .populate("category")
+    .sort([[sortBy, "asc"]])
+    .limit(limit)
+    .exec((err, allProducts) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No products found"
+        });
+      }
+      return res.json(allProducts);
+    });
+}
+
+//Middleware
+const photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType)
+    return res.send(req.product.photo.data);
+  }
+  next();
+}
+
 const createProduct = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
@@ -61,19 +97,9 @@ const createProduct = (req, res) => {
   });
 }
 
-const getProduct = (req, res) => {
-  res.product.photo = undefined;
-  return res.json(res.product);
-}
 
-//Middleware
-const photo = (req, res, next) => {
-  if (req.product.photo.data) {
-    res.set("Content-Type", req.product.photo.contentType)
-    return res.send(req.product.photo.data);
-  }
-  next();
-}
+
+
 
 //Delete controller
 const deleteProduct = (req, res) => {
@@ -127,27 +153,6 @@ const updateProduct = (req, res) => {
       return res.json(product);
     });
   });
-}
-
-//Product listing
-const getAllProducts = (req, res) => {
-  let limit = req.query.limit ? parseInt(req.query.limit) : 8;
-  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
-
-  Product
-    .find()
-    .select("-photo")//This '-' means not selecting photos
-    .populate("category")
-    .sort([[sortBy, "asc"]])
-    .limit(limit)
-    .exec((err, allProducts) => {
-      if (err) {
-        return res.status(400).json({
-          error: "No products found"
-        });
-      }
-      return res.json(allProducts);
-    });
 }
 
 const updateStock = (req, res, next) => {
