@@ -20,8 +20,8 @@ const getProductById = (req, res, next, id) => {
 
 //get only product
 const getProduct = (req, res) => {
-  res.product.photo = undefined;
-  return res.json(res.product);
+  req.product.photo = undefined;
+  return res.json(req.product);
 }
 
 //Product listing
