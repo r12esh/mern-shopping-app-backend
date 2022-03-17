@@ -24,7 +24,7 @@ router.post("/product/create/:userId", isSignedIn, isAuthenticated, isAdmin, cre
 
 //GET routes:-
 router.get("/product/:productId", getProduct);
-router.get("product/photo/productId", photo);
+router.get("product/photo/:productId", photo);
 
 //LISTING routes:-
 router.get("/products", getAllProducts);
