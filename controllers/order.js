@@ -1,4 +1,4 @@
-const {Order, ProductCart} = require("../models/order")
+const { Order, ProductCart } = require("../models/order");
 
 const getOrderById = (req, res, next, id) => {
   Order.findById(id)
@@ -6,13 +6,13 @@ const getOrderById = (req, res, next, id) => {
     .exec((err, order) => {
       if (err) {
         return res.status(400).json({
-          error: "Order not found"
+          error: "Order not found",
         });
       }
       req.order = order;
       next();
     });
-}
+};
 
 const createOrder = (req, res) => {
   req.body.order.user = req.profile;
@@ -20,12 +20,12 @@ const createOrder = (req, res) => {
   order.save((err, order) => {
     if (err) {
       return res.status(400).json({
-        error: "Failed to save the order in DB"
+        error: "Failed to save the order in DB",
       });
     }
     return res.json(order);
   });
-}
+};
 
 const getAllOrders = (req, res) => {
   Order.find()
@@ -33,38 +33,37 @@ const getAllOrders = (req, res) => {
     .exec((err, order) => {
       if (err) {
         return res.status(400).json({
-          error: "No orders found in DB"
+          error: "No orders found in DB",
         });
       }
-      res.json({order});
+      res.json({ order });
     });
-}
+};
 
 const getOrderStatus = (req, res) => {
   res.json(Order.schema.path("status").enumValues);
-}
+};
 
 const updateStatus = (req, res) => {
   Order.updateOne(
-    {_id: req.body.orderId},
-    {$set: {status: req.body.status}},
+    { _id: req.body.orderId },
+    { $set: { status: req.body.status } },
     (err, order) => {
       if (err) {
         return res.status(400).json({
-          error: "Cannot update the status"
+          error: "Cannot update the status",
         });
       }
       return res.json(order);
     }
   );
-}
+};
 
 //Exports:-
-module
-  .exports = {
+module.exports = {
   getOrderById,
   createOrder,
   getAllOrders,
   getOrderStatus,
-  updateStatus
-}
+  updateStatus,
+};

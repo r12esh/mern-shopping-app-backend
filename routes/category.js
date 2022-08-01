@@ -7,10 +7,10 @@ const {
   getCategory,
   getAllCategories,
   updateCategory,
-  deleteCategory
+  deleteCategory,
 } = require("../controllers/category");
-const {getUserById} = require("../controllers/user");
-const {isSignedIn, isAuthenticated, isAdmin} = require("../controllers/auth");
+const { getUserById } = require("../controllers/user");
+const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 
 //params:-
 router.param("userId", getUserById);
@@ -18,7 +18,13 @@ router.param("categoryId", getCategoryById);
 
 //post requests:-
 //CREATE
-router.post("/category/create/:userId", isSignedIn, isAuthenticated, isAdmin, createCategory);
+router.post(
+  "/category/create/:userId",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  createCategory
+);
 
 //get requests:-
 //READ
@@ -27,10 +33,22 @@ router.get("/categories", getAllCategories);
 
 //put requests:-
 //UPDATE
-router.put("/category/:categoryId/:userId", isSignedIn, isAuthenticated, isAdmin, updateCategory);
+router.put(
+  "/category/:categoryId/:userId",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  updateCategory
+);
 
 //delete requests:-
 //DELETE
-router.delete("/category/:categoryId/:userId", isSignedIn, isAuthenticated, isAdmin, deleteCategory);
+router.delete(
+  "/category/:categoryId/:userId",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  deleteCategory
+);
 
 module.exports = router;

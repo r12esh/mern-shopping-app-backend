@@ -1,10 +1,10 @@
 // Import modules
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-const {v4} = require("uuid");
+const { v4 } = require("uuid");
 
 // Schema from mongoose
-let {Schema} = mongoose;
+let { Schema } = mongoose;
 
 // Defining the user schema
 let userSchema = new Schema(
@@ -13,47 +13,46 @@ let userSchema = new Schema(
       type: String,
       required: true,
       maxlength: 32,
-      trim: true
+      trim: true,
     },
 
     lastName: {
       type: String,
       maxLength: 32,
-      trim: true
+      trim: true,
     },
     // note: Password here
     storedEncryptedPassword: {
       type: String,
-      required: true
+      required: true,
     },
 
     email: {
       type: String,
       trim: true,
       required: true,
-      unique: true
+      unique: true,
     },
 
     userInfo: {
       type: String,
-      trim: true
+      trim: true,
     },
 
     salt: String,
 
     role: {
       type: Number,
-      default: 0
+      default: 0,
     },
 
     purchases: {
       type: Array,
-      default: []
-    }
-
+      default: [],
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
@@ -67,7 +66,7 @@ userSchema
   })
   .get(function () {
     return this._password;
-  })
+  });
 
 userSchema.methods = {
   //Method to check whether the password is correct or not
@@ -86,7 +85,7 @@ userSchema.methods = {
     } catch (error) {
       return "";
     }
-  }
+  },
 };
 
 // const User = mongoose.model("User", userSchema);
@@ -99,12 +98,3 @@ userSchema.methods = {
 // console.log(Me.name)
 
 module.exports = mongoose.model("User", userSchema);
-
-
-
-
-
-
-
-
-

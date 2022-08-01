@@ -4,12 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "supervisor app.js"
+    "start": "nodemon app.js"
   },
   "author": "Ritesh",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "braintree": "^3.12.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -27,6 +28,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "nodemon": "^2.0.19",
     "supervisor": "^0.12.0"
   }
 }

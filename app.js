@@ -12,6 +12,7 @@ const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
 const orderRoutes = require("./routes/order");
+const paymentBroutes = require("./routes/paymentB");
 
 //DB Connection:-
 mongoose
@@ -26,15 +27,7 @@ mongoose
 //Middlewares:-
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(cors());
-// app.use(cors({'Access-Control-Allow-Origin':"http://localhost:3000"}));
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    // credentials: true,
-    // methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+app.use(cors());
 
 //Using routes:-
 app.use("/api", authRoutes);
@@ -42,6 +35,7 @@ app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", paymentBroutes);
 
 //Server starts:-
 const port = process.env.PORT || 8000;
