@@ -2,9 +2,9 @@ const braintree = require("braintree");
 
 const gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
-  merchantId: "useYourMerchantId",
-  publicKey: "useYourPublicKey",
-  privateKey: "useYourPrivateKey",
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
 });
 
 const getToken = (req, res) => {
@@ -30,7 +30,7 @@ const processPayment = (req, res) => {
     },
     (err, result) => {
       if (err) {
-        res.status.json(err);
+        res.status(500).json(err);
       } else {
         res.json(result);
       }

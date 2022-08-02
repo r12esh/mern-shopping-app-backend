@@ -52,7 +52,7 @@ const updateUser = (req, res) => {
   );
 };
 
-const userPurchaseList = (res, req) => {
+const userPurchaseList = (req, res) => {
   Order.find({ user: req.profile._id })
     //Anytime we reference something from a different collection we use populate.
     //This takes two parameters 1. Which model or object you want to update and 2. what fields we bring in.
@@ -68,8 +68,9 @@ const userPurchaseList = (res, req) => {
 };
 
 //Custom middlewares:-
-const pushOrderInPurchaseList = (res, req, next) => {
+const pushOrderInPurchaseList = (req, res, next) => {
   let purchases = [];
+  console.log("REQUEST HAI YEEE", req.body);
   req.body.order.products.forEach((product) => {
     purchases.push({
       _id: product._id,
@@ -77,14 +78,15 @@ const pushOrderInPurchaseList = (res, req, next) => {
       description: product.description,
       category: product.category,
       quantity: product.quantity,
-      amount: req.body.order.amount,
+      price: product.price,
       transaction_id: req.body.order.transaction_id,
     });
   });
+  console.log("PURCHASES hai ye", purchases);
 
   //Store this in the DB
   User.findOneAndUpdate(
-    { _id: req.profile._id },
+    { id: req.profile._id },
     { $push: { purchases: purchases } },
     { new: true }, //This means the object returning from the database is the new updated one and not the old one
     (err, purchases) => {

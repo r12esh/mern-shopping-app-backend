@@ -16,7 +16,7 @@ const paymentBroutes = require("./routes/paymentB");
 
 //DB Connection:-
 mongoose
-  .connect("mongodb://localhost:27017/tShirt")
+  .connect(process.env.DATABASE)
   .then(() => {
     console.log("DB CONNECT HO GAYA");
   })
