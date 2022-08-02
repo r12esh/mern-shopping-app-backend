@@ -86,7 +86,7 @@ const pushOrderInPurchaseList = (req, res, next) => {
 
   //Store this in the DB
   User.findOneAndUpdate(
-    { id: req.profile._id },
+    { _id: req.profile._id },
     { $push: { purchases: purchases } },
     { new: true }, //This means the object returning from the database is the new updated one and not the old one
     (err, purchases) => {
